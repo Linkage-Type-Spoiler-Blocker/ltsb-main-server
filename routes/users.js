@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var crypto = requrie('crypto');
+var crypto = require('crypto');
 /* Sign up. */
 // router.post('/signup', function(req, res, next) {
 //   res.send('respond with a resource');

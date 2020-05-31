@@ -11,7 +11,7 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 /* table간의 연결 */
-// db.User = require('./models/user')(sequelize, Sequelize);
+db.User = require('./models/user')(sequelize, Sequelize);
 // db.Comment = require('./models/movie')(sequelize, Sequelize);
 
 module.exports = db;

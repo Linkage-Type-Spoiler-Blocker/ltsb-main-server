@@ -1,22 +1,29 @@
-var mysql = require('mysql');
-var conn = mysql.createConnection({
-  host: 'localhost',
-  port: /*입력*/,
-  user: /*입력*/,
-  password: /*입력*/,
-  database: /*입력*/
-});
 
-conn.connect();
-
-var sql = 'SELECT * FROM topic';
-conn.query(sql, function(err, row, fields){
-  if(err){
-    console.log(err);
-  } else{
-    console.log('rows', rows);
-    console.log('fields', fields);
-  }
-});
-
-conn.end();
+module.exports = (sequelize, DataTypes) =>{
+  return sequelize.define('user', {
+    uid : {
+      type : DataTypes.INTEGER,
+      autoIncrement : true,
+      allowNull : false,
+      primaryKey : true
+    },
+    email : {
+      type : DataTypes.STRING(320),
+      allowNull : false
+    },
+    pw : {
+      type : DataTypes.TEXT(40),
+      allowNull : false
+    },
+    is_active : {
+      type : DataTypes.INTEGER(1),
+      allowNull : false
+    },
+    location : {
+      type : DataTypes.INTEGER(3),
+      allowNull : false
+    }
+  }, {
+    timestamps : false,
+  });
+};
