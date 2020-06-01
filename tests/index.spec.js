@@ -20,5 +20,8 @@ describe('db sync test',()=>{
 	it('db',(done)=>{
 		console.log(Object.keys(db));
 		done()
-	})
-})
+	});
+	// it('user',(done)=>{
+	// 	console.log()
+	// });
+});
