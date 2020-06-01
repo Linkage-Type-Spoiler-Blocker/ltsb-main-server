@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) =>{
       allowNull : false
     },
     pw : {
-      type : DataTypes.TEXT(40),
+      type : DataTypes.TEXT(34),
       allowNull : false
     },
     is_active : {

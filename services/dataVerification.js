@@ -2,6 +2,7 @@ const {constants} = require('../utils');
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const pwRegex = /(.){6,20}/
 const availableLocales = constants.availableLocales;
+//TODO 굳이 constants를 불러와야 했을까? 여기에서 그냥 변수로 넣어놓는게 나았을지도..
 
 // TODO verificate 코드 작성
 const verificateRegistration = (email, pw, locale)=>{
@@ -13,6 +14,7 @@ const verificateRegistration = (email, pw, locale)=>{
         if(wholeResult.length>0){
             throw new Error(wholeResult.join(','));
         }
+        return true;
     }
     catch(e){
         throw new Error(e.message);
