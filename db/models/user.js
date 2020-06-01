@@ -19,8 +19,12 @@ module.exports = (sequelize, DataTypes) =>{
       type : DataTypes.INTEGER(1),
       allowNull : false
     },
+    registration_code : {
+      type : DataTypes.TEXT(40),
+      allowNull : false
+    },
     location : {
-      type : DataTypes.INTEGER(3),
+      type : DataTypes.TEXT(2),
       allowNull : false
     }
   }, {
