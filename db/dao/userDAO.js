@@ -13,6 +13,22 @@ const addUser = async (email,encryptedPW,locale,registrationCode) => {
     });
 }
 
+const userAlreadyExist = async (email) => {
+    const entry = await UserModel.findOne({
+        where : {
+            email : email
+        },
+        raw : true
+    });
+    if(entry !== null){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 module.exports = {
-    addUser
+    addUser,
+    userAlreadyExist
 }

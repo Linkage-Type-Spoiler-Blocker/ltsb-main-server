@@ -25,6 +25,8 @@ describe('db sync test',()=>{
 		const testPW = 'abcde';
 		const testLocale = 'KR';
 		const registrationCode = 'abcdde';
-		await UserDAO.addUser(testMail,testPW, testLocale, registrationCode);
+		const testSalt = 'ddd';
+		await UserDAO.addUser(testMail,testPW, testLocale, registrationCode, testSalt);
+		console.log(await UserDAO.userAlreadyExist('jooha208@gmail.com'));
 	});
 });

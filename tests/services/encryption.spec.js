@@ -6,6 +6,6 @@ describe('encryption', ()=>{
         const testPW = 'redpanda';
         const {encryptedPW, salt} = await encryption.encryptPW(testPW);
         console.log(encryptedPW);
-        // console.log(salt);
+        console.log(salt);
     })
 })
