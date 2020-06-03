@@ -1,4 +1,4 @@
-// const db = require('../db');
+
 const {dataVerification} = require('../../services');
 const should = require('should')
 
@@ -10,8 +10,9 @@ describe('Registration verificate', ()=>{
         let testLocale = 'KR';
 
         dataVerification.verificateRegistration(testEmail,testPW,testLocale);
-    // TODO    테스트 코드 작성
     })
+    // TODO 테스트 형식을 에러가 발생하고, 그 메시지 내용이 일치하는걸로 바꾸자.
+    // 실패하는 테스트는 오해하기 쉽다.
     it('wrong email address', ()=>{
         let testEmail = 'jooha208gmail.com';
         let testPW = 'abcdef';

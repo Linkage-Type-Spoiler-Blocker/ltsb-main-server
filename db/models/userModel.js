@@ -1,6 +1,6 @@
 
 module.exports = (sequelize, DataTypes) =>{
-  return sequelize.define('user', {
+  sequelize.define('user', {
     uid : {
       type : DataTypes.INTEGER,
       autoIncrement : true,
@@ -29,5 +29,7 @@ module.exports = (sequelize, DataTypes) =>{
     }
   }, {
     timestamps : false,
+    freezeTableName : true
   });
 };
+

@@ -1,7 +1,8 @@
 const should = require('should')
 const request = require('supertest')
 const app = require('../app')
-const db = require('../db');
+const syncDB = require('../bin/sync-db');
+const {UserDAO} = require('../db/dao');
 
 /* 단순히 서버 동작 확인위한 테스트. */
 describe('GET /index', ()=>{
@@ -17,11 +18,13 @@ describe('GET /index', ()=>{
 });
 
 describe('db sync test',()=>{
-	it('db',(done)=>{
-		console.log(Object.keys(db));
-		done()
+
+	it('user create worked',async ()=>{
+		await syncDB();
+		const testMail = 'jooha208@gmail.com';
+		const testPW = 'abcde';
+		const testLocale = 'KR';
+		const registrationCode = 'abcdde';
+		await UserDAO.addUser(testMail,testPW, testLocale, registrationCode);
 	});
-	// it('user',(done)=>{
-	// 	console.log()
-	// });
 });

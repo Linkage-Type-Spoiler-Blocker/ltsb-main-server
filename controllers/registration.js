@@ -8,6 +8,10 @@ const applyRegistration = async (req,res,next) =>{
         if(isValid){
             const {encryptedPW, salt} = await encryption.encryptPW(pw);
         }
+        else{
+            return false;
+        }
+
     }
     catch(e){
 
