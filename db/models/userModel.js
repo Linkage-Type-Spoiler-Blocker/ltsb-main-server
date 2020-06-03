@@ -12,7 +12,11 @@ module.exports = (sequelize, DataTypes) =>{
       allowNull : false
     },
     pw : {
-      type : DataTypes.TEXT(34),
+      type : DataTypes.STRING(34),
+      allowNull : false
+    },
+    salt : {
+      type : DataTypes.STRING(34),
       allowNull : false
     },
     is_active : {
@@ -20,7 +24,7 @@ module.exports = (sequelize, DataTypes) =>{
       allowNull : false
     },
     registration_code : {
-      type : DataTypes.TEXT(40),
+      type : DataTypes.STRING(40),
       allowNull : false
     },
     location : {

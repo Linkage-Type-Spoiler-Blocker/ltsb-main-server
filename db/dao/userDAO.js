@@ -3,13 +3,14 @@ const UserModel = sequelize.model('user');
 
 // user를 사용한 function들이 있어야 .
 
-const addUser = async (email,encryptedPW,locale,registrationCode) => {
+const addUser = async (email,encryptedPW,locale,registrationCode, salt) => {
     UserModel.create({
         email : email,
         pw : encryptedPW,
         location : locale,
         is_active : 0,
-        registration_code : registrationCode
+        registration_code : registrationCode,
+        salt : salt
     });
 }
 

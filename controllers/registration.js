@@ -1,5 +1,4 @@
-const {dataVerification} = require('../services');
-const {encryption} = require('../services');
+const {dataVerification, encryption, generateToken} = require('../services');
 const {UserDAO} = require('../db/dao');
 
 const applyRegistration = async (req,res,next) =>{
@@ -15,6 +14,7 @@ const applyRegistration = async (req,res,next) =>{
         let isValid = dataVerification.verificateRegistration(email,pw,locale);
         if(isValid){
             const {encryptedPW, salt} = await encryption.encryptPW(pw);
+            const registrationCode = await generateToken();
             await UserDAO.addUser(email, encryptedPW, locale, registrationCode, salt);
         }
         else{
