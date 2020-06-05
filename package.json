@@ -7,13 +7,15 @@
     "test": "NODE_ENV=test mocha ./tests/**/*.spec.js -w"
   },
   "dependencies": {
+    "aws-sdk": "^2.689.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "express": "^4.16.4",
     "http-errors": "^1.7.3",
     "jade": "~1.11.0",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "nodemailer": "^6.4.8"
   },
   "devDependencies": {
     "mocha": "^7.1.2",

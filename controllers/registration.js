@@ -1,4 +1,4 @@
-const {dataVerification, encryption, generateToken} = require('../services');
+const {dataVerification, encryption, generateToken, sendMailToUser} = require('../services');
 const {UserDAO} = require('../db/dao');
 
 const applyRegistration = async (req,res,next) =>{
@@ -16,15 +16,16 @@ const applyRegistration = async (req,res,next) =>{
             const {encryptedPW, salt} = await encryption.encryptPW(pw);
             const registrationCode = await generateToken();
             await UserDAO.addUser(email, encryptedPW, locale, registrationCode, salt);
+            await sendMailToUser(email, registrationCode);
         }
         else{
             return false;
         }
-
     }
     catch(e){
-
+        next(e);
     }
+    res.send('<script type="text/javascript">alert("이메일을 확인하세요."); window.location="/"; </script>');
 }
 
 module.exports = {
