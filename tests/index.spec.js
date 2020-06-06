@@ -30,9 +30,11 @@ describe('db sync test',()=>{
 		const testLocale = 'KR';
 		const registrationCode = 'abcdde';
 		const testSalt = 'ddd';
+
 		await UserDAO.addUser(testMail,testPW, testLocale, registrationCode, testSalt);
 		const result = await UserDAO.userAlreadyExist('jooha208@gmail.com');
-		console.log(result);
+
+		result.should.equal(true);
 	});
 
 	it('activateTokenUser test', async () =>{
@@ -41,6 +43,7 @@ describe('db sync test',()=>{
 		const testLocale = 'KR';
 		const registrationCode = 'abcdde';
 		const testSalt = 'ddd';
+
 		await UserDAO.addUser(testMail,testPW, testLocale, registrationCode, testSalt);
 		await UserDAO.activateTokenUser(registrationCode);
 		const result = await UserDAO.checkIfNoWaitingUser();
