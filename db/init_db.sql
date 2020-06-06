@@ -13,7 +13,8 @@ CREATE TABLE user(
     uid int not null AUTO_INCREMENT,
     email VARCHAR(320) not null, 
     pw char(40) not null, 
-    is_active tinyint(1) not null, 
+    is_active tinyint(1) not null,
+    registration_code char(40) not null,
     location int(3) not null,
     PRiMARY KEY (uid)
 );

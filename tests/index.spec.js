@@ -1,7 +1,8 @@
 const should = require('should')
 const request = require('supertest')
 const app = require('../app')
-const db = require('../db');
+const syncDB = require('../bin/sync-db');
+const {UserDAO} = require('../db/dao');
 
 /* 단순히 서버 동작 확인위한 테스트. */
 describe('GET /index', ()=>{
@@ -17,8 +18,36 @@ describe('GET /index', ()=>{
 });
 
 describe('db sync test',()=>{
-	it('db',(done)=>{
-		console.log(Object.keys(db));
-		done()
+
+	beforeEach(async ()=>{
+		console.log('beforeEach');
+		await syncDB()
 	})
-})
+
+	it('user create worked',async ()=>{
+		const testMail = 'jooha208@gmail.com';
+		const testPW = 'abcde';
+		const testLocale = 'KR';
+		const registrationCode = 'abcdde';
+		const testSalt = 'ddd';
+
+		await UserDAO.addUser(testMail,testPW, testLocale, registrationCode, testSalt);
+		const result = await UserDAO.userAlreadyExist('jooha208@gmail.com');
+
+		result.should.equal(true);
+	});
+
+	it('activateTokenUser test', async () =>{
+		const testMail = 'jooha208@gmail.com';
+		const testPW = 'abcde';
+		const testLocale = 'KR';
+		const registrationCode = 'abcdde';
+		const testSalt = 'ddd';
+
+		await UserDAO.addUser(testMail,testPW, testLocale, registrationCode, testSalt);
+		await UserDAO.activateTokenUser(registrationCode);
+		const result = await UserDAO.checkIfNoWaitingUser();
+
+		result.should.equal(false);
+	});
+});
