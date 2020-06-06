@@ -19,14 +19,32 @@ describe('GET /index', ()=>{
 
 describe('db sync test',()=>{
 
+	beforeEach(async ()=>{
+		console.log('beforeEach');
+		await syncDB()
+	})
+
 	it('user create worked',async ()=>{
-		await syncDB();
 		const testMail = 'jooha208@gmail.com';
 		const testPW = 'abcde';
 		const testLocale = 'KR';
 		const registrationCode = 'abcdde';
 		const testSalt = 'ddd';
 		await UserDAO.addUser(testMail,testPW, testLocale, registrationCode, testSalt);
-		console.log(await UserDAO.userAlreadyExist('jooha208@gmail.com'));
+		const result = await UserDAO.userAlreadyExist('jooha208@gmail.com');
+		console.log(result);
+	});
+
+	it('activateTokenUser test', async () =>{
+		const testMail = 'jooha208@gmail.com';
+		const testPW = 'abcde';
+		const testLocale = 'KR';
+		const registrationCode = 'abcdde';
+		const testSalt = 'ddd';
+		await UserDAO.addUser(testMail,testPW, testLocale, registrationCode, testSalt);
+		await UserDAO.activateTokenUser(registrationCode);
+		const result = await UserDAO.checkIfNoWaitingUser();
+
+		result.should.equal(false);
 	});
 });

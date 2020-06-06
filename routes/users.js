@@ -1,11 +1,11 @@
 const express = require('express');
 
-const crypto = require('crypto');
-
 const router = express.Router();
 const { registration } = require('../controllers');
 
 router.post('/signup', registration.applyRegistration);
+
+router.post('/verify-email', registration.activateUser);
 
 router.post('/login', function(req, res, next) {
   res.send('respond with a resource');

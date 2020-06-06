@@ -29,7 +29,36 @@ const userAlreadyExist = async (email) => {
     }
 }
 
+
+const activateTokenUser = async (token) =>{
+    const entry = await UserModel.update({
+        is_active : 1,
+    }, {
+        where: {
+            registration_code : token,
+            is_active : 0
+        },
+    });
+}
+
+const checkIfNoWaitingUser = async () => {
+    const entry = await UserModel.findOne({
+        where : {
+            is_active : 0
+        },
+        raw : true
+    })
+    if(entry !== null){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 module.exports = {
     addUser,
-    userAlreadyExist
+    userAlreadyExist,
+    activateTokenUser,
+    checkIfNoWaitingUser
 }

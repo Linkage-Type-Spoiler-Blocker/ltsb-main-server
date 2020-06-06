@@ -28,6 +28,18 @@ const applyRegistration = async (req,res,next) =>{
     res.send('<script type="text/javascript">alert("이메일을 확인하세요."); window.location="/"; </script>');
 }
 
+const activateUser = async (req,res,next) => {
+    try{
+        const {token} = req.query.regtoken;
+
+        await UserDAO.activateTokenUser(token);
+    }
+    catch(e){
+        next(e);
+    }
+}
+
 module.exports = {
-    applyRegistration
+    applyRegistration,
+    activateUser
 }
