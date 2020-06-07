@@ -16,6 +16,9 @@ let transporter = nodemailer.createTransport({
 
 const generateRegistrationLink = (generationToken) => {
     // TODO base api주소 반영하기 baseAPIAddress 활용
+    // TODO regtoken이라는 parameter로 넣어줘야 한다는거, 주소에 넣어줘야함.
+
+    //  var url = 'http://' + req.get('host')+'/confirmEmail'+'?key='+key_for_verify;
 
     return generationToken;
 }
@@ -30,6 +33,7 @@ const sendMailToUser = async (userMail, registrationToken) => {
         to: userMail,
         subject: 'lstb registration mail',
         text: registrationLink,
+        //html : '<h1>이메일 인증을 위해 URL을 클릭해주세요.</h1><br>'+url
     });
 
     return info;
