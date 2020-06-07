@@ -56,9 +56,26 @@ const checkIfNoWaitingUser = async () => {
     }
 }
 
+const getUserProfileFromEmail = async (email)=>{
+    const entry = await UserModel.findOne({
+        where : {
+            email :email
+        },
+        raw : true
+    });
+    const resultObject = {};
+    if(entry !== null){
+        resultObject.salt = entry.salt;
+        resultObject.encryptedPW = entry.pw;
+        resultObject.uid = entry.uid;
+    }
+    return resultObject;
+}
+
 module.exports = {
     addUser,
     userAlreadyExist,
     activateTokenUser,
-    checkIfNoWaitingUser
+    checkIfNoWaitingUser,
+    getUserProfileFromEmail
 }

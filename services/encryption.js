@@ -33,5 +33,6 @@ async function encryptPWWithSalt(pw,salt){
 
 
 module.exports = {
-    encryptPW
+    encryptPW,
+    encryptPWWithSalt
 }
