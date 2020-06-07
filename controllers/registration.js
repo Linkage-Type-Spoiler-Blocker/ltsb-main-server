@@ -1,4 +1,4 @@
-const {dataVerification, encryption, generateToken, sendMailToUser} = require('../services');
+const {dataVerification, encryption, generateRegistrationToken, sendMailToUser} = require('../services');
 const {UserDAO} = require('../db/dao');
 
 const applyRegistration = async (req,res,next) =>{
@@ -14,7 +14,7 @@ const applyRegistration = async (req,res,next) =>{
         let isValid = dataVerification.verificateRegistration(email,pw,locale);
         if(isValid){
             const {encryptedPW, salt} = await encryption.encryptPW(pw);
-            const registrationCode = await generateToken();
+            const registrationCode = await generateRegistrationToken();
             await UserDAO.addUser(email, encryptedPW, locale, registrationCode, salt);
             await sendMailToUser(email, registrationCode);
         }
@@ -25,6 +25,7 @@ const applyRegistration = async (req,res,next) =>{
     catch(e){
         next(e);
     }
+    //TODO flash 띄우는게 좋지 않니?
     res.send('<script type="text/javascript">alert("이메일을 확인하세요."); window.location="/"; </script>');
 }
 

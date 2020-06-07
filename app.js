@@ -4,17 +4,11 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const movieRouter = require('./routes/movie');
-const sequelize = require('./db').sequelize;
 
 const app = express();
 
-// //로그인
-// var passport = require('passport');
-// var LocalStrategy = require('passport-local').Strategy;
-// var Session = require('express-session');
 // var flash = require('connect-flash');
 
 app.use(logger('dev'));
@@ -23,7 +17,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/movie',movieRouter);
 
