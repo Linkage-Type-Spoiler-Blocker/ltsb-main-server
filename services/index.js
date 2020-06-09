@@ -2,6 +2,7 @@ const dataVerification = require('./dataVerification');
 const encryption = require('./encryption');
 const {generateRegistrationToken, generateAccessToken} = require('./generateToken');
 const {sendMailToUser} = require('./mailSending');
+const awsConnector = require('./awsConnector');
 
 const services = {};
 services.dataVerification = dataVerification;
