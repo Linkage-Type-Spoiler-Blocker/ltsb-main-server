@@ -18,6 +18,7 @@ const searchMovies = async (options) => {
     const entries = await MovieModel.findAll(fullOptions);
 
     // TODO 결과를 db결과를 날것으로 반환하기보다는 좀 더 비즈니스로직에 맞게 바꿔서 반환해주어야 하나?
+    // TODO wordset created옵션은 제외하고 돌려주기. 이건 내부적으로만 사용될 attribute다.
     return entries
 }
 

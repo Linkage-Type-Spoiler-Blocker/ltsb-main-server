@@ -1,5 +1,6 @@
 
 const {MovieDAO} = require('../db/dao');
+const {resourceLoader} = require('../services');
 
 const searchMovies = async (req,res,next)=>{
     const options = {};
@@ -13,11 +14,19 @@ const searchMovies = async (req,res,next)=>{
     res.json({result : entries});
 }
 
-const retrieveWordList = async (req,res,next) =>{
+// TODO naming 마음에 안든다.
+const requestWordList = async (req, res, next) =>{
+    const movieId = req.query['movie_id'];
+    const title = req.query['title'];
 
+    const resultObj = {};
+    resultObj['movieId'] = movieId;
+    resultObj['title'] = title;
+    resultObj['words'] = await resourceLoader.loadJson(movieId);
+    res.json(resultObj);
 }
 
 module.exports = {
     searchMovies,
-    retrieveWordList
+    requestWordList
 }
