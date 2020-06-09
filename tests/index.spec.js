@@ -2,7 +2,9 @@ const should = require('should')
 const request = require('supertest')
 const app = require('../app')
 const syncDB = require('../bin/sync-db');
-const {UserDAO} = require('../db/dao');
+const {UserDAO, MovieDAO} = require('../db/dao');
+const {sequelize} = require('../db/index');
+const MovieModel = sequelize.model('movie');
 
 /* 단순히 서버 동작 확인위한 테스트. */
 describe('GET /index', ()=>{
@@ -17,6 +19,7 @@ describe('GET /index', ()=>{
 	})
 });
 
+//TODO db 테스트도 분리해가지고, 가끔 실행시키는게 맞는듯. db테스트는 아무리 sqlite로 대체해도 쌓이면 오래걸린다.
 describe('db sync test',()=>{
 
 	beforeEach(async ()=>{
@@ -50,4 +53,27 @@ describe('db sync test',()=>{
 
 		result.should.equal(false);
 	});
+
+	//TODO 검색 옵션 좀더 강화시킨 후 실패테스트까지 하나 추가로 만들기.
+	it('movie search test', async() => {
+		const createOptions = {
+			movie_id : 1,
+			movie_name : "Avengers",
+			director_name : "Joseph",
+			release_year : 2012,
+			language : "kr",
+			wordset_created : 1
+		};
+		const searchOptions = {
+			title : "Avengers",
+			director : "Joseph",
+			language : "kr",
+			releaseYear : 2012
+		};
+
+		await MovieModel.create(createOptions);
+
+		const entry = await MovieDAO.searchMovies(searchOptions);
+		console.log(entry);
+	})
 });
