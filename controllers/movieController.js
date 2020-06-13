@@ -9,21 +9,36 @@ const searchMovies = async (req,res,next)=>{
     options['language'] = req.query['language'];
     options['releaseYear'] = req.query['release-year'];
 
-    const entries = await MovieDAO.searchMovies(options);
+    const withoutUndefinedOptions = {};
+
+    for (let [key, value] of Object.entries(options)) {
+        if(value !== undefined){
+            withoutUndefinedOptions[key] = value;
+        }
+    }
+
+    const entries = await MovieDAO.searchMovies(withoutUndefinedOptions);
 
     res.json({result : entries});
 }
 
 // TODO naming 마음에 안든다.
 const requestWordList = async (req, res, next) =>{
-    const movieId = req.query['movie_id'];
-    const title = req.query['title'];
+    try {
 
-    const resultObj = {};
-    resultObj['movieId'] = movieId;
-    resultObj['title'] = title;
-    resultObj['words'] = await resourceLoader.loadJson(movieId);
-    res.json(resultObj);
+        const movieId = req.query['movie_id'];
+        const title = req.query['title'];
+
+        const resultObj = {};
+        resultObj['movieId'] = movieId;
+        resultObj['title'] = title;
+        resultObj['words'] = await resourceLoader.loadJson(movieId);
+        res.json(resultObj);
+    }
+    catch(e) {
+        console.log(e);
+        next(e);
+    }
 }
 
 module.exports = {

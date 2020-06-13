@@ -75,5 +75,13 @@ describe('db sync test',()=>{
 
 		const entry = await MovieDAO.searchMovies(searchOptions);
 		console.log(entry);
+
+		const searchOptions2 = {
+			title : "avenge",
+			director : "josE",
+		};
+
+		const entry2 = await MovieDAO.searchMovies(searchOptions2);
+		console.log(entry2);
 	})
 });

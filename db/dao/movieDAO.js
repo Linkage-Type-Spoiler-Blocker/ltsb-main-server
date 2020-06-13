@@ -1,15 +1,24 @@
-const {sequelize} = require('../index');
+const {Sequelize,sequelize} = require('../index');
 const MovieModel = sequelize.model('movie');
+const like = Sequelize.Op.like;
+
 
 const searchMovies = async (options) => {
-    //TODO 정확히 일치하는 결과만 보여주고 있다. 영화이름과 감독이름에 대해서는 부분적으로 일치해도 반환을 해야함.
+    //TODO undefined 걸러내기와 like 대입하기를 어떻게 효율적으로 할 수 있지?
 
     const convertedOptions = {};
-
-    convertedOptions['movie_name'] = options['title'];
-    convertedOptions['director_name'] = options['director'];
-    convertedOptions['language'] = options['language'];
-    convertedOptions['release_year'] = options['releaseYear'];
+    if(options['title']!==undefined){
+        convertedOptions['movie_name'] = {[like]: `%${options['title']}%`};
+    }
+    if(options['director']!==undefined){
+        convertedOptions['director_name'] = {[like]: `%${options['director']}%`};
+    }
+    if(options['releaseYear']!==undefined){
+        convertedOptions['language'] = options['language'];
+    }
+    if(options['language']!==undefined){
+        convertedOptions['release_year'] = options['releaseYear'];
+    }
     convertedOptions['wordset_created'] = 1;
 
     const fullOptions = {};
