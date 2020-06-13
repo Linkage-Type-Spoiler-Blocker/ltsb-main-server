@@ -1,3 +1,5 @@
+//TODO util로 분리할걸 그랬다.
+
 const AWS = require('aws-sdk');
 
 const loadS3 = async()=>{

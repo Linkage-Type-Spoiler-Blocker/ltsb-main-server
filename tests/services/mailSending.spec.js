@@ -1,10 +1,15 @@
 const {sendMailToUser} = require('../../services');
+require("dotenv").config();
 
 describe('sendingEmail',()=>{
-    it('success Test', async () =>{
-        // const testMailAddress = 'astoru@naver.com'
-        // const testToken = 'www.google.com';
-        // const result = await sendMailToUser(testMailAddress, testToken);
-        // console.log(result.response);
+    beforeEach(async ()=>{
+        require("dotenv").config();
+    })
+    it('success Test', async (done) =>{
+        const testMailAddress = 'astoru@naver.com'
+        const testToken = 'www.google.com';
+        const result = sendMailToUser(testMailAddress, testToken);
+        console.log(result.response);
+        done();
     })
 })

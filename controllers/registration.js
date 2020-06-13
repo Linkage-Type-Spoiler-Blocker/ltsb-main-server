@@ -16,7 +16,7 @@ const applyRegistration = async (req,res,next) =>{
             const {encryptedPW, salt} = await encryption.encryptPW(pw);
             const registrationCode = await generateRegistrationToken();
             await UserDAO.addUser(email, encryptedPW, locale, registrationCode, salt);
-            await sendMailToUser(email, registrationCode);
+            sendMailToUser(email, registrationCode);
         }
         else{
             return false;
