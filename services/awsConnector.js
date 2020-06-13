@@ -1,11 +1,17 @@
 //TODO util로 분리할걸 그랬다.
 
+const env = process.env.NODE_ENV ||'development';
+
 const AWS = require('aws-sdk');
 
 const loadS3 = async()=>{
-    //TODO accesspath 따로 지정할 수 있으니까 이것도 그냥 dotenv로 부르자.
-    const s3Cred = await AWS.config.loadFromPath('../config/s3-config.json');
-    return new AWS.S3(s3Cred);
+    AWS.config.region = 'us-west-1';
+    if(env === 'development'||'test'){
+        AWS.config.accessKeyId = process.env.AWS_DEV_ACCESS_KEY;
+        AWS.config.secretAccessKey = process.env.AWS_DEV_SECRET_ACCESS_KEY;
+    }
+
+    return new AWS.S3();
 }
 
 const loadSES = async()=>{
@@ -16,7 +22,7 @@ const loadSES = async()=>{
 //TODO 테스트 필요.
 (async()=>{
     exports.S3 = await loadS3();
-    exports.SES = await loadSES();
+    // exports.SES = await loadSES();
 })();
 
 module.exports = {
