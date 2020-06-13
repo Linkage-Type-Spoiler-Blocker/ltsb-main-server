@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* Search movie for block */
+const { movieController } = require('../controllers');
 
-// router.get('/list', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
+router.get('/search', movieController.searchMovies);
+router.get('/words',movieController.requestWordList);
 
 module.exports = router;
