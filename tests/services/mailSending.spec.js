@@ -8,7 +8,7 @@ describe('sendingEmail',()=>{
     it('success Test', async (done) =>{
         const testMailAddress = 'astoru@naver.com'
         const testToken = 'www.google.com';
-        const result = sendMailToUser(testMailAddress, testToken);
+        const result = sendMailToUser('127.0.0.1',testMailAddress, testToken);
         console.log(result.response);
         done();
     })

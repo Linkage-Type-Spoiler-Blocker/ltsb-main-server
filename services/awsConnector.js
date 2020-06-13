@@ -9,19 +9,10 @@ if (env === 'development' || 'test') {
 }
 const S3 = new AWS.S3();
 
-console.log('S3 is'+ typeof S3);
-console.log(Object.keys(S3));
-
 const loadSES = async()=>{
     const sesCred = await AWS.config.loadFromPath('../config/ses-config.json');
     return new AWS.SES(sesCred);
 }
-
-//TODO 테스트 필요.
-// (async()=>{
-//     exports.S3 = await loadS3();
-//     // exports.SES = await loadSES();
-// })();
 
 module.exports = {
     S3 : S3

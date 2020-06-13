@@ -5,6 +5,8 @@ const applyRegistration = async (req,res,next) =>{
     let registrationCode;
     try{
         const {email, pw, locale} = req.body;
+        const hostAddress = req.get('host');
+
         // TODO userDAO 다루는걸 service로 분리?
         const isAlreadyExist = await UserDAO.userAlreadyExist(email);
 
@@ -19,7 +21,7 @@ const applyRegistration = async (req,res,next) =>{
             registrationCode = await generateRegistrationToken();
             // console.log('token : '+registrationCode);
             await UserDAO.addUser(email, encryptedPW, locale, registrationCode, salt);
-            sendMailToUser(email, registrationCode);
+            sendMailToUser(hostAddress, email, registrationCode);
             res.status(200).json({msg : "요청이 성공적으로 보내졌습니다. 메일을 확인하세요.", token : registrationCode});
             //TODO 원래 여기서 token 반환해주면 안된다.
         }

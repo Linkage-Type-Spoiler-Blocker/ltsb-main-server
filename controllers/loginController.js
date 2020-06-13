@@ -1,7 +1,7 @@
 const {encryption, generateAccessToken} = require('../services');
 const {UserDAO} = require('../db/dao');
 
-//TODO supertest 정의하기.
+
 const login = async (req,res,next)=>{
     const {email,pw} = req.body;
     const {salt, encryptedPW, uid} = await UserDAO.getUserProfileFromEmail(email);

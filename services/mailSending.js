@@ -18,18 +18,15 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const generateRegistrationLink = (generationToken) => {
-    // TODO base api주소 반영하기 baseAPIAddress 활용
-    // TODO regtoken이라는 parameter로 넣어줘야 한다는거, 주소에 넣어줘야함.
+const generateRegistrationLink = (hostAddress, generationToken) => {
+    const url = 'http://' + hostAddress + '/verify-email'+'?token=' + generationToken;
 
-    //  var url = 'http://' + req.get('host')+'/confirmEmail'+'?key='+key_for_verify;
-
-    return generationToken;
+    return url;
 }
 
-const sendMailToUser = async (userMail, registrationToken) => {
+const sendMailToUser = async (hostAddress, userMail, registrationToken) => {
 
-    const registrationLink = generateRegistrationLink(registrationToken);
+    const registrationLink = generateRegistrationLink(hostAddress, registrationToken);
 
     const result = await transporter.sendMail({
         from: process.env.EMAIL_ID,
