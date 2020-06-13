@@ -31,7 +31,7 @@ const userAlreadyExist = async (email) => {
 
 
 const activateTokenUser = async (token) =>{
-    const entry = await UserModel.update({
+    const result = await UserModel.update({
         is_active : 1,
     }, {
         where: {
@@ -39,6 +39,12 @@ const activateTokenUser = async (token) =>{
             is_active : 0
         },
     });
+    if(result[0] ===0){
+        return false;
+    }else{
+        return true;
+    }
+
 }
 
 const checkIfNoWaitingUser = async () => {
