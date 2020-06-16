@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) =>{
       allowNull : false
     },
     location : {
-      type : DataTypes.TEXT(2),
+      type : DataTypes.CHAR(2),
       allowNull : false
     }
   }, {

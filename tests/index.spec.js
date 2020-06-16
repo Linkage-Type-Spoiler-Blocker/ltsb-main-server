@@ -64,6 +64,14 @@ describe('db sync test',()=>{
 			language : "kr",
 			wordset_created : 1
 		};
+		const createOptions2 = {
+			movie_id : 2,
+			movie_name : "ffff",
+			director_name : "bbbbb",
+			release_year : 2015,
+			language : "kr",
+			wordset_created : 1
+		};
 		const searchOptions = {
 			title : "Avengers",
 			director : "Joseph",
@@ -72,6 +80,7 @@ describe('db sync test',()=>{
 		};
 
 		await MovieModel.create(createOptions);
+		await MovieModel.create(createOptions2);
 
 		const entry = await MovieDAO.searchMovies(searchOptions);
 		console.log(entry);
