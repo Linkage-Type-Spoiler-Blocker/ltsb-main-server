@@ -9,6 +9,7 @@ const searchMovies = async (options) => {
     const convertedOptions = {};
     if(options['title']!==undefined){
         convertedOptions['movie_name'] = {[like]: `%${options['title']}%`};
+        console.log(convertedOptions['movie_name']);
     }
     if(options['director']!==undefined){
         convertedOptions['director_name'] = {[like]: `%${options['director']}%`};

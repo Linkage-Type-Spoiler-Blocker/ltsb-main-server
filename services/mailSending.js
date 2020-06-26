@@ -1,7 +1,4 @@
 const nodemailer = require('nodemailer');
-const {constants} = require('../utils');
-const {baseAPIAddress} = constants;
-const path = require('path');
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -25,6 +22,9 @@ const generateRegistrationLink = (hostAddress, generationToken) => {
 }
 
 const sendMailToUser = async (hostAddress, userMail, registrationToken) => {
+
+    console.log(process.env.EMAIL_PW === undefined);
+    console.log(process.env.EMAIL_ID === undefined);
 
     const registrationLink = generateRegistrationLink(hostAddress, registrationToken);
 

@@ -3,6 +3,9 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cors = require('cors');
+
+console.log(process.env.NODE_ENV);
 
 const usersRouter = require('./routes/users');
 const movieRouter = require('./routes/movie');
@@ -10,7 +13,7 @@ const movieRouter = require('./routes/movie');
 const app = express();
 
 // var flash = require('connect-flash');
-
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,7 +36,9 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  // res.render('error');
 });
+
+
 
 module.exports = app;

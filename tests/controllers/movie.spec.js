@@ -30,9 +30,9 @@ describe('/movie', ()=>{
     it('영화검색', async()=>{
         const result = await request(app)
             .get('/movie/search')
-            .send(
+            .query(
                 {
-                    movie_name : "avengers",
+                    title : "avengers",
                     // director_name : "",
                     // release_year : 1234,
                     language : "en"
