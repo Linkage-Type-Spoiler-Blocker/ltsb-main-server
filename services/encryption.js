@@ -30,9 +30,13 @@ async function encryptPWWithSalt(pw,salt){
     });
 }
 
+const base64Encode = (utf8Text)=>{
+    return Buffer.from(utf8Text, "utf8").toString('base64');
+}
 
 
 module.exports = {
     encryptPW,
-    encryptPWWithSalt
+    encryptPWWithSalt,
+    base64Encode
 }
